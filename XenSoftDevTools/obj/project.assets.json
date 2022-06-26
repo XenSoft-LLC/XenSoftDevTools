@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Repository\\XenSoft DevTools 2022\\XenSoftDevTools\\XenSoftDevTools.csproj",
+      "projectUniqueName": "F:\\Repository\\XenSoftDevTools\\XenSoftDevTools\\XenSoftDevTools.csproj",
       "projectName": "XenSoftDevTools",
-      "projectPath": "F:\\Repository\\XenSoft DevTools 2022\\XenSoftDevTools\\XenSoftDevTools.csproj",
+      "projectPath": "F:\\Repository\\XenSoftDevTools\\XenSoftDevTools\\XenSoftDevTools.csproj",
       "packagesPath": "C:\\Users\\Soundman\\.nuget\\packages\\",
-      "outputPath": "F:\\Repository\\XenSoft DevTools 2022\\XenSoftDevTools\\obj\\",
+      "outputPath": "F:\\Repository\\XenSoftDevTools\\XenSoftDevTools\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Soundman\\AppData\\Roaming\\NuGet\\NuGet.Config",
