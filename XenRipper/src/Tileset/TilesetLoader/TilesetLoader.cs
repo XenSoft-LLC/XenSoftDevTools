@@ -41,16 +41,16 @@ namespace XenRipper.TilesetLoader {
             //Create Tile class
         }
 
-        private void splitTilesetIntoTiles(Image tilesetImage, int[] tilesetDimensions, TilesetMetaConfig tilesetMetaConfig) {
+        private void splitTilesetIntoTiles(Tileset tileset) {
             try {
                 Directory.CreateDirectory("Tiles");
-                splitTilesetImage(tilesetImage, tilesetDimensions[1], true);
+                splitTilesetImage(tileset.TilesetImage, tileset.Dimensions[1], true);
                 Image[] fileRows = getFileRows();
                 foreach(Image file in fileRows) {
-                    splitTilesetImage(file, tilesetDimensions[0], false;
+                    splitTilesetImage(file, tileset.Dimensions[0], false;
                 }
             } catch {
-
+                throw Exception("Error: Could not split tiles correctly");
             }
 
         }
@@ -67,11 +67,15 @@ namespace XenRipper.TilesetLoader {
                     rect = new Rectangle(image.Width / splitInto * i, 0, image.Width / splitInto, image.Height);
                 }
                 using (Bitmap clonedImage = new Bitmap(image).Clone(rect, new Bitmap(image).PixelFormat)) {
-                    if (horizontal){
-                        clonedImage.Save($"{Directory.GetCurrentDirectory()}\\Tiles\\TileRow{i + 1}.png");
+                    string pngName = "Tile";
+                    if (horizontal) {
+                        pngName = "TileRow";
                     } else {
-                        clonedImage.Save($"{Directory.GetCurrentDirectory()}\\Tiles\\Tile{i + 1}.png");
+
                     }
+                    
+                    
+                    clonedImage.Save($"{Directory.GetCurrentDirectory()}\\Tiles\\{pngName}{i + 1}.png");
                 }
             }
         }
