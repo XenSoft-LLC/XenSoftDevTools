@@ -10,6 +10,13 @@ namespace XenRipper.src.Tileset.TilesetLoader {
         public int TileWidth { get; set; }
         public int TileCount { get; set; }
 
-
+        public TilesetMetaConfig(string name, int columns, int tileHeight, int tileWidth, int tileCount)
+        {
+            Name = name;
+            Columns = columns;
+            TileHeight = tileHeight;
+            TileWidth = tileWidth;
+            TileCount = tileCount;
+        }
     }
 }

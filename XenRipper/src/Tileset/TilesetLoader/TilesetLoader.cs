@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace XenRipper.TilesetLoader {
     public class TilesetLoader {
         public string TargetDirectory { get; set; } = "";
-        public Tileset ImportTilesetFromJSON(string dirUrl) {
+        public Tileset ImportTilesetFromDirectory(string dirUrl) {
             TilesetMetaConfig tilesetMetaConfig;
 
             moveToTargetDir(dirUrl);
@@ -26,56 +26,42 @@ namespace XenRipper.TilesetLoader {
             int[] tilesetDimensions = new int[2] { tilesetImage.Width / tilesetMetaConfig.TileWidth, tilesetImage.Height / tilesetMetaConfig.TileHeight };
 
             //Separate image into 32x32px blocks and print them into a folder called "tiles" in the tilesetHomeDir file located in the XenRipperConfig class.
-            splitTilesetIntoTiles(tilesetImage, tilesetDimensions, tilesetMetaConfig);
-
-            return new Tileset(tilesetMetaConfig.Name, tilesetMetaConfig, new int[2] { tilesetImage.Width / tilesetMetaConfig.TileWidth, tilesetImage.Height / tilesetMetaConfig.TileHeight }, null);
-
-
-            //Create Tile object for each tile in the set and include them in a Tile[] array on Tileset
-            //Load in Metadata.json to determine which tiles are solid
-            //Create a property on Tileset object called bool[] Collision which will be a 2d array equal in size to the Tiles array and will mark wether or not theyre collision tiles.
-            //Create a collision.json file in the same folder that the tiles are in, which will be a text representation of the collision data from Metadata.
-            //Return the tileset
-
-            //Tileset should ultimately just have a multi-dimensional array of "Tiles" which give you the name of the tile, and their collision status.
-            //Create Tile class
+            Tileset newTileset = new Tileset(tilesetImage, tilesetMetaConfig,
+                new int[2] { tilesetImage.Width / tilesetMetaConfig.TileWidth, tilesetImage.Height / tilesetMetaConfig.TileHeight });
+            splitTilesetIntoTiles(newTileset);
+            return newTileset;
         }
 
         private void splitTilesetIntoTiles(Tileset tileset) {
             try {
                 Directory.CreateDirectory("Tiles");
-                splitTilesetImage(tileset.TilesetImage, tileset.Dimensions[1], true);
+                splitTilesetImage(tileset, tileset.TilesetImage, tileset.Dimensions[1], true, 0);
                 Image[] fileRows = getFileRows();
+                int rowNumber = 0;
                 foreach(Image file in fileRows) {
-                    splitTilesetImage(file, tileset.Dimensions[0], false;
+                    splitTilesetImage(tileset, file, tileset.Dimensions[0], false, rowNumber);
+                    rowNumber++;
                 }
             } catch {
-                throw Exception("Error: Could not split tiles correctly");
+                throw new Exception("Error: Could not split tiles correctly");
             }
 
         }
 
-        private void splitTilesetImage(Image image, int splitInto, bool horizontal)
+        private void splitTilesetImage(Tileset tileset, Image image, int splitInto, bool horizontal, int rowNumber)
         {
-            for (int i = 0; i < splitInto; i++)
-            {
+            for (int i = 0; i < splitInto; i++) {
                 Rectangle rect;
-                if (horizontal)
-                {
+                string pngName;
+                if (horizontal) { 
                     rect = new Rectangle(0, image.Height / splitInto * i, image.Width, image.Height / splitInto);
+                    pngName = "TileRow";
                 } else {
                     rect = new Rectangle(image.Width / splitInto * i, 0, image.Width / splitInto, image.Height);
+                    pngName = "Tile";
                 }
                 using (Bitmap clonedImage = new Bitmap(image).Clone(rect, new Bitmap(image).PixelFormat)) {
-                    string pngName = "Tile";
-                    if (horizontal) {
-                        pngName = "TileRow";
-                    } else {
-
-                    }
-                    
-                    
-                    clonedImage.Save($"{Directory.GetCurrentDirectory()}\\Tiles\\{pngName}{i + 1}.png");
+                    clonedImage.Save($"{Directory.GetCurrentDirectory()}\\Tiles\\{pngName}{i + rowNumber*(tileset.Dimensions[0])}.png");
                 }
             }
         }

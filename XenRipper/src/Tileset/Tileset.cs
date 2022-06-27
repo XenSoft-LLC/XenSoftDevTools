@@ -11,13 +11,22 @@ namespace XenRipper.src.Tileset {
         public TilesetMetaConfig TilesetMetaConfig { get; set; }
         public int[] Dimensions { get; set; }
         public Tile[] Tiles { get; set; }
-        
+
         public Tileset(string name, Image tilesetImage, TilesetMetaConfig tilesetMetaConfig, int[] dimensions, Tile[] tiles) {
             Name = name;
             TilesetImage = tilesetImage;
             TilesetMetaConfig = tilesetMetaConfig;
             Dimensions = dimensions;
             Tiles = tiles;
+        }
+
+        public Tileset(Image tilesetImage, TilesetMetaConfig tilesetMetaConfig, int[] dimensions)
+        {
+            Name = tilesetMetaConfig.Name;
+            TilesetImage = tilesetImage;
+            TilesetMetaConfig = tilesetMetaConfig;
+            Dimensions = dimensions;
+            Tiles = new Tile[tilesetMetaConfig.TileCount];
         }
 
     }

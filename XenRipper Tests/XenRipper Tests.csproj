@@ -24,8 +24,4 @@
     <ProjectReference Include="..\XenRipper\XenRipper.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TestTilesetImages\Tiles\" />
-  </ItemGroup>
-
 </Project>
