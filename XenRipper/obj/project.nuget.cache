@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "2evD9B2nXVDmWc2MOEUUpJh5oExt883/ByqggHuvGo1pJxPbrrZhRX91ZgFgQ1lMfJ51a0xkVV0+N1CfekZX3w==",
+  "dgSpecHash": "j1vdywBjz8k8y8Mim/NxiWm3lR7+GBCMmbDJFjGyuNToKpV2EAyhz9fvhcL2RAYwlSdJ0attYWeDG5U+ou0RXA==",
   "success": true,
   "projectFilePath": "F:\\Repository\\XenSoftDevTools\\XenRipper\\XenRipper.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Soundman\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Soundman\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Soundman\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
