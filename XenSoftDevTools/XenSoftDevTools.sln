@@ -12,12 +12,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{A77F0028-7C04-40D4-AE6F-5E2C17349896}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XenSoft Dev Tools", "XenSoft Dev Tools", "{FB611DAF-29DB-4606-8D19-6ED1CEF37047}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XenDB Tests", "..\XenDB Tests\XenDB Tests.csproj", "{9E5CCD65-330E-4C34-8D6F-F7A38F5F88C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XenDB Tests", "..\XenDB Tests\XenDB Tests.csproj", "{9E5CCD65-330E-4C34-8D6F-F7A38F5F88C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XenLogger Tests", "..\XenLogger Tests\XenLogger Tests.csproj", "{E6AE09B8-F40D-4A0C-8EC7-F606AC97CAD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XenLogger Tests", "..\XenLogger Tests\XenLogger Tests.csproj", "{E6AE09B8-F40D-4A0C-8EC7-F606AC97CAD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XenLogger", "..\XenLogger\XenLogger.csproj", "{C5AD093A-F2F4-46BD-910F-045F072E0B61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XenLogger", "..\XenLogger\XenLogger.csproj", "{C5AD093A-F2F4-46BD-910F-045F072E0B61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
