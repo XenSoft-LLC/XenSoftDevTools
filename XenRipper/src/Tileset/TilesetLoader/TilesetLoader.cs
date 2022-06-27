@@ -23,8 +23,6 @@ namespace XenRipper.TilesetLoader {
             Image tilesetImage = Image.FromFile("tileset.png");
             validateTilesetImageSize(tilesetImage, tilesetMetaConfig);
 
-            int[] tilesetDimensions = new int[2] { tilesetImage.Width / tilesetMetaConfig.TileWidth, tilesetImage.Height / tilesetMetaConfig.TileHeight };
-
             //Separate image into 32x32px blocks and print them into a folder called "tiles" in the tilesetHomeDir file located in the XenRipperConfig class.
             Tileset newTileset = new Tileset(tilesetImage, tilesetMetaConfig,
                 new int[2] { tilesetImage.Width / tilesetMetaConfig.TileWidth, tilesetImage.Height / tilesetMetaConfig.TileHeight });
