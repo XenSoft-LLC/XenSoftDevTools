@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XenRipper.src.Config {
-    class XenRipperConfig {
+    public static class XenRipperConfig {
 
-        public string TilesetHome {get; set;}
+        public static string TilesetHome { get; set; } = "";
 
     }
 }

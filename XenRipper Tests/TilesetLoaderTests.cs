@@ -10,11 +10,10 @@ namespace XenRipper_Tests {
     public class TilesetLoaderTests {
         [Fact]
         public void ImportTilesetFromJSONReturnsCorrectTilesetObject() {
-            TilesetLoader tilesetLoader = new TilesetLoader();
 
             Tileset expectedTilset = new Tileset(Image.FromFile(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\tileset.png"), 
                 new TilesetMetaConfig("PTE_DemoMap", 10, 32, 32, 20), new int[2] { 10, 2 });
-            Tileset actualTileset = tilesetLoader.ImportTilesetFromDirectory(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\");
+            Tileset actualTileset = TilesetLoader.ImportTilesetFromDirectory(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\");
 
             Assert.Equal(JsonConvert.SerializeObject(expectedTilset), JsonConvert.SerializeObject(actualTileset));
             //Check integrity of generated tiles??
