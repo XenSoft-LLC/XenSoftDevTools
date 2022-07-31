@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using XenRipper.src.Tileset;
-using System.Drawing;
-using Newtonsoft.Json.Linq;
-using XenRipper.src.Tileset.TilesetLoader;
+using System.Drawing; 
 using Newtonsoft.Json;
 using XenRipper.src.Config;
+using XenRipper.src.Tileset.MetaConfig;
+using XenRipper.src.Tileset.Validator;
 
-namespace XenRipper.TilesetLoader {
+namespace XenRipper.src.Tileset.TilesetLoader {
     public static class TilesetLoader {
         public static Tileset ImportTilesetFromDirectory(string targetDirectory) {
 
@@ -19,18 +18,49 @@ namespace XenRipper.TilesetLoader {
             //Import + Validate integrity of tileset.png/meta.json
             TilesetMetaConfig tilesetMetaConfig = readMetaJSON();
             Image tilesetImage = Image.FromFile("tileset.png");
-            validateTilesetDivisibleByTileSize(tilesetImage, tilesetMetaConfig);
+            TilesetValidator.validateTilesetDivisibleByTileSize(tilesetImage, tilesetMetaConfig);
 
             //Generate Tileset object from meta.json and tileset.png
             Tileset newTileset = new Tileset(tilesetImage, tilesetMetaConfig,
                 new int[2] { tilesetImage.Width / tilesetMetaConfig.TileWidth, tilesetImage.Height / tilesetMetaConfig.TileHeight });
 
-            upsertDirectory(newTileset.Name);
+            createTilesetDirectory(newTileset.Name);
 
             //Create new Tileset files and migrate meta.json/tileset.png 
             generateTilesFromTileset(newTileset);
             copyMetaFiles(newTileset.Name, targetDirectory);
             return newTileset;
+        }
+
+        public static Tileset LoadTilesetFromHardDrive(string tilesetName){
+            try {
+                Directory.SetCurrentDirectory($"{getTilesetHomeDirectory()}\\{tilesetName}");
+            } catch(IOException e) {
+                Console.WriteLine(e);
+                return null;
+            }
+
+            TilesetMetaConfig tilesetMetaConfig;
+            //TODO: Find out what exception this would be and log a better message 
+            try {
+                tilesetMetaConfig = readMetaJSON();
+            } catch (Exception e){
+                Console.WriteLine(e);
+                return null;
+            }
+
+            Image tilesetImage;
+
+            try {
+                tilesetImage = Image.FromFile("tileset.png");
+            } catch (Exception e) {
+                Console.WriteLine(e);
+                return null;
+            }
+
+            return new Tileset(tilesetImage, tilesetMetaConfig,
+                new int[2] { tilesetImage.Width / tilesetMetaConfig.TileWidth, tilesetImage.Height / tilesetMetaConfig.TileHeight });
+
         }
 
         private static TilesetMetaConfig readMetaJSON()
@@ -59,7 +89,7 @@ namespace XenRipper.TilesetLoader {
 
         }
 
-        private static void splitTilesetImage(Tileset tileset, Image image, int splitInto, bool horizontal, int rowNumber)
+        private static void splitTilesetImage(Tileset tileset, Image image, int slitInto, bool horizontal, int rowNumber)
         {
             Rectangle rect;
             string imageDirectory;
@@ -92,7 +122,7 @@ namespace XenRipper.TilesetLoader {
             }
         }
 
-        private static void upsertDirectory(string directoryName)
+        private static void createTilesetDirectory(string directoryName)
         {
             try {
                 Directory.Delete(directoryName, true);
@@ -118,15 +148,7 @@ namespace XenRipper.TilesetLoader {
 
         private static void copyMetaFiles(string tilesetName, string dirUrl)
         {
-            string parentDirectory;
-            if (XenRipperConfig.TilesetHome != "")
-            {
-                parentDirectory = XenRipperConfig.TilesetHome;
-            }
-            else
-            {
-                parentDirectory = Directory.GetCurrentDirectory();
-            }
+            string parentDirectory = getTilesetHomeDirectory();
 
             string fileToCopy = $"{dirUrl}\\meta.json";
             string destinationFile = $"{parentDirectory}\\{tilesetName}\\meta.json";
@@ -137,14 +159,22 @@ namespace XenRipper.TilesetLoader {
             File.Copy(fileToCopy, destinationFile);
 
         }
-        //Move into TilesetValidator class
-        private static void validateTilesetDivisibleByTileSize(Image tilesetImage, TilesetMetaConfig tilesetMetaConfig)
+
+        private static string getTilesetHomeDirectory()
         {
-            if(tilesetImage.Width % tilesetMetaConfig.TileWidth != 0 || tilesetImage.Height % tilesetMetaConfig.TileHeight !=0 ) {
-                throw new Exception("Invalid dimensions for tileset image.");
+            string parentDirectory;
+            if (XenRipperConfig.TilesetHome != "")
+            {
+                parentDirectory = XenRipperConfig.TilesetHome;
             }
+            else
+            {
+                parentDirectory = Directory.GetCurrentDirectory();
+            }
+            return parentDirectory;
         }
 
+        //Move into TilesetValidator class
         private static void moveToTargetDirectory(string targetDirectory)
         {
             try {
