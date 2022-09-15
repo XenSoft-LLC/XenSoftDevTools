@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using XenRipper.src.Config;
 using XenRipper.src.Tileset.MetaConfig;
 using XenRipper.src.Tileset.Validator;
+using XenRipper.src.ExceptionManager;
 
 namespace XenRipper.src.Tileset.TilesetLoader {
     public static class TilesetLoader {
@@ -33,9 +34,12 @@ namespace XenRipper.src.Tileset.TilesetLoader {
         }
 
         public static Tileset LoadTilesetFromHardDrive(string tilesetName){
+
+            moveToTargetDirectory(getTilesetHomeDirectory());
+
             try {
                 Directory.SetCurrentDirectory($"{getTilesetHomeDirectory()}\\{tilesetName}");
-            } catch(IOException e) {
+            } catch(TiledExceptionManager.MissingDirectoryException e) {
                 Console.WriteLine(e);
                 return null;
             }
@@ -44,7 +48,7 @@ namespace XenRipper.src.Tileset.TilesetLoader {
             //TODO: Find out what exception this would be and log a better message 
             try {
                 tilesetMetaConfig = readMetaJSON();
-            } catch (Exception e){
+            } catch (TiledExceptionManager.UnreadableFileException e){
                 Console.WriteLine(e);
                 return null;
             }
@@ -53,7 +57,7 @@ namespace XenRipper.src.Tileset.TilesetLoader {
 
             try {
                 tilesetImage = Image.FromFile("tileset.png");
-            } catch (Exception e) {
+            } catch (TiledExceptionManager.UnreadableFileException e) {
                 Console.WriteLine(e);
                 return null;
             }
@@ -73,7 +77,7 @@ namespace XenRipper.src.Tileset.TilesetLoader {
         }
 
         private static void generateTilesFromTileset(Tileset tileset) {
-/*            try {*/
+            try{
                 splitTilesetImage(tileset, tileset.TilesetImage, tileset.Dimensions[1], true, 0);
                 Image[] fileRows = getFileRows(tileset.Name);
                 int rowNumber = 0;
@@ -83,13 +87,13 @@ namespace XenRipper.src.Tileset.TilesetLoader {
                     file.Dispose();
                 }
                 Directory.Delete($"{Directory.GetCurrentDirectory()}\\{tileset.Name}\\TileRow", true);
-/*            } catch {
-                throw new Exception("Error: Could not split tiles correctly");
-            }*/
+            } catch(TiledExceptionManager.UnreadableFileException Exception) {
+                throw Exception;
+            }
 
         }
 
-        private static void splitTilesetImage(Tileset tileset, Image image, int slitInto, bool horizontal, int rowNumber)
+        private static void splitTilesetImage(Tileset tileset, Image image, int splitInto, bool horizontal, int rowNumber)
         {
             Rectangle rect;
             string imageDirectory;
@@ -103,7 +107,7 @@ namespace XenRipper.src.Tileset.TilesetLoader {
 
             try {
                 Directory.CreateDirectory($"{tileset.Name}\\{imageDirectory}");
-            } catch(IOException e) {
+            } catch(TiledExceptionManager.CouldntCreateDirectoryException e) {
                 Console.WriteLine(e);
             }
 
@@ -127,7 +131,7 @@ namespace XenRipper.src.Tileset.TilesetLoader {
             try {
                 Directory.Delete(directoryName, true);
                 Directory.CreateDirectory(directoryName);
-            } catch (IOException e) {
+            } catch (TiledExceptionManager.CouldntCreateDirectoryException e) {
                 Directory.CreateDirectory(directoryName);
                 Console.WriteLine(e);
             }
@@ -180,7 +184,7 @@ namespace XenRipper.src.Tileset.TilesetLoader {
             try {
                 Directory.SetCurrentDirectory(targetDirectory);
             }
-            catch (Exception e) {
+            catch (TiledExceptionManager.MissingDirectoryException e) {
                 //Log error in both log file and console
                 Console.WriteLine(e);
             }
@@ -188,11 +192,11 @@ namespace XenRipper.src.Tileset.TilesetLoader {
             string[] dirFiles = Directory.GetFiles(targetDirectory).Select(x => x.Replace(targetDirectory, "")).ToArray();
 
             if (!dirFiles.Contains("tileset.png")) {
-                throw new Exception("Target directory does not contain a file named tileset.png");
+                throw new TiledExceptionManager.UnreadableFileException("Target directory does not contain a file named tileset.png");
             }
 
             if (!dirFiles.Contains("meta.json")) {
-                throw new Exception("Target directory does not contain a file named meta.json");
+                throw new TiledExceptionManager.UnreadableFileException("Target directory does not contain a file named meta.json");
             }
         }
 

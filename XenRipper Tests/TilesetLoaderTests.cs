@@ -9,21 +9,41 @@ using System.Collections.Generic;
 using XenRipper_Tests.TestTileArrayJSONs;
 
 namespace XenRipper_Tests {
-    public class TilesetLoaderTests {
-        [Fact]
-        public void ImportTilesetFromJSONReturnsCorrectTilesetObject() {
-            Tile[] expectedArray = ImportTilesetFromJSONArray.Tiles;
-            Tileset expectedTilset = new Tileset(Image.FromFile(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\tileset.png"), 
-                new TilesetMetaConfig("PTE_DemoMap", 10, expectedArray, 32, 32, 20), new int[2] { 10, 2 });
-            Tileset actualTileset = TilesetLoader.ImportTilesetFromDirectory(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\");
 
-            Assert.Equal(JsonConvert.SerializeObject(expectedTilset), JsonConvert.SerializeObject(actualTileset));
-        }
+        [Collection("TilesetLoaderTests")]
+        public class ImportTilesetFromJSONReturnsCorrectTilesetObject {
+            [Fact]
+            public void TestImportTilesetFromJSONReturnsCorrectTilesetObject()
+            {
+                Tile[] expectedArray = ImportTilesetFromJSONArray.Tiles;
+                Tileset expectedTileset = new Tileset(Image.FromFile(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\tileset.png"),
+                    new TilesetMetaConfig("PTE_DemoMap", 10, expectedArray, 32, 32, 20), new int[2] { 10, 2 });
+                Tileset actualTileset = TilesetLoader.ImportTilesetFromDirectory(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\");
 
-/*        [Fact]
-        public void LoadTilesetFromJSONReturnsCorrectTilesetObject()
-        {
-            Tile[] expectedArray = new Tile[] {
+                Assert.Equal(JsonConvert.SerializeObject(expectedTileset), JsonConvert.SerializeObject(actualTileset));
+            }
+        };
+
+        [Collection("TilesetLoaderTests")]
+        public class LoadTilesetFromHardDriveReturnsCorrectTilesetObject {
+            [Fact]
+            public void TestLoadTilesetFromHardDriveReturnsCorrectTilesetObject()
+            {
+                Tile[] expectedArray = LoadTilesetFromHardDriveJSONArray.Tiles;
+                Tileset expectedTileset = new Tileset(Image.FromFile(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\tileset.png"),
+                    new TilesetMetaConfig("PTE_DemoMap", 10, expectedArray, 32, 32, 20), new int[2] { 10, 2 });
+                Tileset actualTileset = TilesetLoader.LoadTilesetFromHardDrive(@"PTE_DemoMap");
+
+                Assert.Equal(JsonConvert.SerializeObject(expectedTileset), JsonConvert.SerializeObject(actualTileset));
+            }
+        };
+
+        [Collection("TilesetLoaderTests")]
+        public class LoadTilesetFromJSONReturnsCorrectTilesetObject {
+            [Fact]
+            public void TestLoadTilesetFromJSONReturnsCorrectTilesetObject()
+            {
+                Tile[] expectedArray = new Tile[] {
                 new Tile(null, 0,
                     new TileProperties() {
                         new TileProperty("canFly", "bool", "false"),
@@ -185,11 +205,12 @@ namespace XenRipper_Tests {
                     }
                 )
             };
-            Tileset expectedTilset = new Tileset(Image.FromFile(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\tileset.png"),
-                new TilesetMetaConfig("PTE_DemoMap", 10, expectedArray, 32, 32, 20), new int[2] { 10, 2 });
-            Tileset actualTileset = TilesetLoader.ImportTilesetFromDirectory(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\");
+                Tileset expectedTilset = new Tileset(Image.FromFile(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\tileset.png"),
+                    new TilesetMetaConfig("PTE_DemoMap", 10, expectedArray, 32, 32, 20), new int[2] { 10, 2 });
+                Tileset actualTileset = TilesetLoader.LoadTilesetFromHardDrive(@"PTE_DemoMap");
 
-            Assert.Equal(JsonConvert.SerializeObject(expectedTilset), JsonConvert.SerializeObject(actualTileset));
-        }*/
-    }
-}
+                Assert.Equal(JsonConvert.SerializeObject(expectedTilset), JsonConvert.SerializeObject(actualTileset));
+            }
+
+        };
+};

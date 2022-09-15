@@ -1,0 +1,10 @@
+F:\Repository\XenSoftDevTools\XenLogger\bin\Debug\netcoreapp3.1\XenLogger.deps.json
+F:\Repository\XenSoftDevTools\XenLogger\bin\Debug\netcoreapp3.1\XenLogger.dll
+F:\Repository\XenSoftDevTools\XenLogger\bin\Debug\netcoreapp3.1\XenLogger.pdb
+F:\Repository\XenSoftDevTools\XenLogger\obj\Debug\netcoreapp3.1\XenLogger.csproj.AssemblyReference.cache
+F:\Repository\XenSoftDevTools\XenLogger\obj\Debug\netcoreapp3.1\XenLogger.GeneratedMSBuildEditorConfig.editorconfig
+F:\Repository\XenSoftDevTools\XenLogger\obj\Debug\netcoreapp3.1\XenLogger.AssemblyInfoInputs.cache
+F:\Repository\XenSoftDevTools\XenLogger\obj\Debug\netcoreapp3.1\XenLogger.AssemblyInfo.cs
+F:\Repository\XenSoftDevTools\XenLogger\obj\Debug\netcoreapp3.1\XenLogger.csproj.CoreCompileInputs.cache
+F:\Repository\XenSoftDevTools\XenLogger\obj\Debug\netcoreapp3.1\XenLogger.dll
+F:\Repository\XenSoftDevTools\XenLogger\obj\Debug\netcoreapp3.1\XenLogger.pdb

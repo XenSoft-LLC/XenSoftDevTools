@@ -8,3 +8,13 @@ F:\Repository\PokemonTacticsMaster\PT-Evolved\PTEvolvedApi\XanDB\obj\Debug\netco
 F:\Repository\PokemonTacticsMaster\PT-Evolved\PTEvolvedApi\XanDB\obj\Debug\netcoreapp3.1\XenDB.csproj.CoreCompileInputs.cache
 F:\Repository\PokemonTacticsMaster\PT-Evolved\PTEvolvedApi\XanDB\obj\Debug\netcoreapp3.1\XenDB.dll
 F:\Repository\PokemonTacticsMaster\PT-Evolved\PTEvolvedApi\XanDB\obj\Debug\netcoreapp3.1\XenDB.pdb
+F:\Repository\XenSoftDevTools\XanDB\bin\Debug\netcoreapp3.1\XenDB.deps.json
+F:\Repository\XenSoftDevTools\XanDB\bin\Debug\netcoreapp3.1\XenDB.dll
+F:\Repository\XenSoftDevTools\XanDB\bin\Debug\netcoreapp3.1\XenDB.pdb
+F:\Repository\XenSoftDevTools\XanDB\obj\Debug\netcoreapp3.1\XenDB.csproj.AssemblyReference.cache
+F:\Repository\XenSoftDevTools\XanDB\obj\Debug\netcoreapp3.1\XenDB.GeneratedMSBuildEditorConfig.editorconfig
+F:\Repository\XenSoftDevTools\XanDB\obj\Debug\netcoreapp3.1\XenDB.AssemblyInfoInputs.cache
+F:\Repository\XenSoftDevTools\XanDB\obj\Debug\netcoreapp3.1\XenDB.AssemblyInfo.cs
+F:\Repository\XenSoftDevTools\XanDB\obj\Debug\netcoreapp3.1\XenDB.csproj.CoreCompileInputs.cache
+F:\Repository\XenSoftDevTools\XanDB\obj\Debug\netcoreapp3.1\XenDB.dll
+F:\Repository\XenSoftDevTools\XanDB\obj\Debug\netcoreapp3.1\XenDB.pdb
