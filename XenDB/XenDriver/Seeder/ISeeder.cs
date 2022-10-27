@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XenDB {
-    class Class2 {
+namespace XenDB.XenDriver.Seeder {
+    interface ISeeder<> {
     }
 }
