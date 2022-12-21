@@ -7,3 +7,5 @@
 /XenLogger Tests/bin/Debug/netcoreapp3.1
 /XenLogger Tests/obj/Debug/netcoreapp3.1
 /XenSoftDevTools/.vs/XenSoftDevTools
+/XenDB/obj
+/XenDB/bin/Debug/netcoreapp3.1
