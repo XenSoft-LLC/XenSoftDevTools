@@ -5,12 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.1" />
     <PackageReference Include="MySql.Data" Version="8.0.30" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\XenSoftDevTools\XenUtils\XenUtils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\Default\Repository\" />
   </ItemGroup>
 
 </Project>
