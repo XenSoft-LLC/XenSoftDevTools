@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="src\ConnectionManager\ConnectionStringConfig\ConnectionStringConfig.json">
+    <None Update="src\Connection\ConnectionStringConfig\ConnectionStringConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -5,7 +5,6 @@ using XenDB.Model;
 using XenDB.Driver;
 using XenDB.Util;
 using XenDB.System.Model;
-using XenDB.src.Model;
 using XenDB.src.System.Model.BridgeModel;
 
 namespace XenDB.Database {

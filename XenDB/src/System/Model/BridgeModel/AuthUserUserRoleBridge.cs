@@ -1,4 +1,4 @@
-﻿using XenDB.src.Model;
+﻿using XenDB.Model;
 using XenDB.System.Model;
 
 namespace XenDB.src.System.Model.BridgeModel {

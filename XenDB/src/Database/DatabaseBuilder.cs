@@ -6,8 +6,14 @@ using XenDB.System.Model;
 namespace XenDB.Database {
     public static class DatabaseBuilder {
         public static void BuildDatabase() {
+
+            //Schema Setup
             ConnectionManager.SetUp();
+
+            //Table Setup
             TableManager.Build();
+
+            //Seed System Data
             new SystemSeederGroup().Run();
             new SystemBridgeSeederGroup().Run();
         }

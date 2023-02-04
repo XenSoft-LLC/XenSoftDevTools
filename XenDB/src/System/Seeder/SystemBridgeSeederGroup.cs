@@ -23,7 +23,7 @@ namespace XenDB.System.Model {
                 })
         };
 
-        public void Run() {
+        public new void Run() {
             Add(_systemBridgeSeeders);
             base.Run();
         }

@@ -55,7 +55,7 @@ namespace XenDB.Util {
         }
 
         public static List<MySqlParameter> GetSQLParameters<T>(this T model) where T : AbstractModel {
-            return model.GetType().GetProperties().Where(property => { return property.Name != "TableName" && property.Name != "ID"; }).ToList().Select(property => {
+            return model.GetType().GetProperties().Where(property => { return property.PropertyType.IsPrimitive && property.Name != "TableName" && property.Name != "ID"; }).ToList().Select(property => {
                 return new MySqlParameter($"@{property.Name}", GetPropertySQLType(property), 100) { Value = property.GetValue(model) };
             }).ToList();
         }

@@ -8,7 +8,7 @@ namespace XenDB.System.Model {
             new BaseSeeder<AuthUserModel>(new List<AuthUserModel>() { new AuthUserModel("admin", "password", 2, false), new AuthUserModel("user", "password", 1, false) })
         };
 
-        public void Run() {
+        public new void Run() {
             Add(_systemSeeders);
             base.Run();
         }

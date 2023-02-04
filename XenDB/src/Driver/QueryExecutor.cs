@@ -8,17 +8,10 @@ using XenDB.Util;
 using MySqlX.XDevAPI.Common;
 
 namespace XenDB.Driver {
-    public static class SQLQueryDriver {
+    public static class QueryExecutor {
 
         // Read Objects
-        public static bool SelectExists<T>(int modelId) where T : AbstractModel, new() {
-            var selectCmd = ConnectionManager.CreateDbCommand($"SELECT EXISTS(SELECT * FROM {new T().TableName} WHERE ID=\"{modelId}\");");
-            var result = selectCmd.ExecuteScalar();
-            selectCmd.Connection.Close();
-            return result != null;
-        }
-
-        public static string SelectString(string commandText) {
+        public static string SelectScalar(string commandText) {
             var selectCmd = ConnectionManager.CreateDbCommand(commandText);
             //TODO: Does this need exception?
             string result = (string)selectCmd.ExecuteScalar();
@@ -26,8 +19,12 @@ namespace XenDB.Driver {
             return result;
         }
 
-        public static T SelectByID<T>(int modelId) where T : AbstractModel, new() {
-            MySqlCommand selectCmd = ConnectionManager.CreateDbCommand($"SELECT * FROM {new T().TableName} WHERE ID=\"{modelId}\";");
+        public static T SelectOne<T>(string commandText) where T : AbstractModel, new() {
+            if(!commandText.Contains("limit 1;")) {
+                commandText = $"{commandText.TrimEnd(';')} limit 1;";
+            }
+
+            MySqlCommand selectCmd = ConnectionManager.CreateDbCommand(commandText);
             T model = new T();
 
             using (var reader = selectCmd.ExecuteReader()) {
@@ -39,7 +36,7 @@ namespace XenDB.Driver {
                     return model;
                 }
             }
-            throw new Exception($"No object with ID {modelId} in table \"{model.TableName}\"");
+            throw new Exception($"No result for query.");
         }
 
         public static List<T> SelectMany<T>(string commandText) where T : AbstractModel, new() {
@@ -76,7 +73,7 @@ namespace XenDB.Driver {
             return model;
         }
 
-        public static void Update<T>(this T model) where T : AbstractModel {
+        public static T Update<T>(this T model) where T : AbstractModel {
             if(model.ID != 0) {
                 MySqlCommand updateCmd = model.UpdatePreparedStatement(ConnectionManager.ConnectionThread);
                 MySqlTransaction transaction = updateCmd.Connection.BeginTransaction();
@@ -85,6 +82,7 @@ namespace XenDB.Driver {
 
                 transaction.Commit();
                 updateCmd.Connection.Close();
+                return model;
             } else {
                 throw new Exception("Update Failed: Object does not exist in Database.");
             }
@@ -99,15 +97,6 @@ namespace XenDB.Driver {
             transaction.Commit();
             deleteCmd.Connection.Close();
             return model.ID;
-        }
-
-        public static T Upsert<T>(this T model) where T : AbstractModel {
-            if (model.ID == 0) {
-                model.Insert();
-            } else {
-                model.Update();
-            }
-            return model;
         }
     }
 }
