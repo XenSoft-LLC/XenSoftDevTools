@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XenDB.XenDriver.ConnectionConfig;
+using XenDB.Connection;
 using XenUtils.JsonIO;
 
-namespace XenDB.XenDriver.Factory{
-    public class ConnectionStringConfigFactory {
-
-
-        public ConnectionStringConfig generateSavedConnectionConfig()
+namespace XenDB.Factory{
+    public static class ConnectionStringConfigFactory {
+        public static ConnectionStringConfig GenerateSavedConnectionConfig()
         {
-            return new JsonIO<ConnectionStringConfig>().loadObject("F:/Repository/XenSoftDevTools/XenDB/src/ConnectionThreadManager/ConnectionStringConfig/ConnectionStringConfig.json");
+            return JsonIO<ConnectionStringConfig>.loadObject(Environment.GetEnvironmentVariable("XenDBConfig"));
         }
-
     }
 }

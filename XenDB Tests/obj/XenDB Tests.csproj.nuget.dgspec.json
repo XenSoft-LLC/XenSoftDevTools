@@ -1,17 +1,179 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Repository\\XenSoftDevTools\\XenDB Tests\\XenDB Tests.csproj": {}
+    "G:\\Development\\Repository\\Active\\XenTools\\XenDB Tests\\XenDB Tests.csproj": {}
   },
   "projects": {
-    "F:\\Repository\\XenSoftDevTools\\XenDB Tests\\XenDB Tests.csproj": {
+    "G:\\Development\\Repository\\Active\\XenTools\\XenDB Tests\\XenDB Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Repository\\XenSoftDevTools\\XenDB Tests\\XenDB Tests.csproj",
+        "projectUniqueName": "G:\\Development\\Repository\\Active\\XenTools\\XenDB Tests\\XenDB Tests.csproj",
         "projectName": "XenDB Tests",
-        "projectPath": "F:\\Repository\\XenSoftDevTools\\XenDB Tests\\XenDB Tests.csproj",
+        "projectPath": "G:\\Development\\Repository\\Active\\XenTools\\XenDB Tests\\XenDB Tests.csproj",
         "packagesPath": "C:\\Users\\Soundman\\.nuget\\packages\\",
-        "outputPath": "F:\\Repository\\XenSoftDevTools\\XenDB Tests\\obj\\",
+        "outputPath": "G:\\Development\\Repository\\Active\\XenTools\\XenDB Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Soundman\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "G:\\Development\\Repository\\Active\\XenTools\\XenDB\\XenDB.csproj": {
+                "projectPath": "G:\\Development\\Repository\\Active\\XenTools\\XenDB\\XenDB.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.9.4, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\Development\\Repository\\Active\\XenTools\\XenDB\\XenDB.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\Development\\Repository\\Active\\XenTools\\XenDB\\XenDB.csproj",
+        "projectName": "XenDB",
+        "projectPath": "G:\\Development\\Repository\\Active\\XenTools\\XenDB\\XenDB.csproj",
+        "packagesPath": "C:\\Users\\Soundman\\.nuget\\packages\\",
+        "outputPath": "G:\\Development\\Repository\\Active\\XenTools\\XenDB\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Soundman\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "G:\\Development\\Repository\\Active\\XenTools\\XenSoftDevTools\\XenUtils\\XenUtils.csproj": {
+                "projectPath": "G:\\Development\\Repository\\Active\\XenTools\\XenSoftDevTools\\XenUtils\\XenUtils.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.Data.Sqlite.Core": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.30, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\Development\\Repository\\Active\\XenTools\\XenSoftDevTools\\XenUtils\\XenUtils.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\Development\\Repository\\Active\\XenTools\\XenSoftDevTools\\XenUtils\\XenUtils.csproj",
+        "projectName": "XenUtils",
+        "projectPath": "G:\\Development\\Repository\\Active\\XenTools\\XenSoftDevTools\\XenUtils\\XenUtils.csproj",
+        "packagesPath": "C:\\Users\\Soundman\\.nuget\\packages\\",
+        "outputPath": "G:\\Development\\Repository\\Active\\XenTools\\XenSoftDevTools\\XenUtils\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Soundman\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,25 +202,9 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Microsoft.NET.Test.Sdk": {
+            "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[16.9.4, )"
-            },
-            "coverlet.collector": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.2, )"
-            },
-            "xunit": {
-              "target": "Package",
-              "version": "[2.4.1, )"
-            },
-            "xunit.runner.visualstudio": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.4.3, )"
+              "version": "[13.0.1, )"
             }
           },
           "imports": [
@@ -67,7 +213,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -76,7 +223,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

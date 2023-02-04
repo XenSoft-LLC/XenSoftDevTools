@@ -1,136 +1,113 @@
-﻿using XenDriver.Model;
+﻿using XenDB.Model;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
-using System.Linq;
-using XenDB.XenDriver.ConnectionThread;
+using XenDB.Connection;
 using System;
 using System.Reflection;
-using System.Data.Common;
-using System.Data.SqlClient;
-using Microsoft.Data.Sqlite;
+using XenDB.Util;
+using MySqlX.XDevAPI.Common;
 
-namespace XenDB.XenDriver.DBDriver {
-    public class SQLQueryDriver {
+namespace XenDB.Driver {
+    public static class SQLQueryDriver {
 
-        public SQLQueryDriver() {
-
+        // Read Objects
+        public static bool SelectExists<T>(int modelId) where T : AbstractModel, new() {
+            var selectCmd = ConnectionManager.CreateDbCommand($"SELECT EXISTS(SELECT * FROM {new T().TableName} WHERE ID=\"{modelId}\");");
+            var result = selectCmd.ExecuteScalar();
+            selectCmd.Connection.Close();
+            return result != null;
         }
 
-        public T SelectOne<T>(string commandText) where T : AbstractModel, new() {
-            MySqlConnection connection = ConnectionThreadManager.ConnectionThread();
-            var selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = commandText;
-            connection.Open();
-            T t = new T();
-            using (var reader = selectCmd.ExecuteReader()) {
-                if (!reader.Read()) { return null; }
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    string propertyName = reader.GetName(i);
-                    object columnValue = reader.GetValue(i);
+        public static string SelectString(string commandText) {
+            var selectCmd = ConnectionManager.CreateDbCommand(commandText);
+            //TODO: Does this need exception?
+            string result = (string)selectCmd.ExecuteScalar();
+            selectCmd.Connection.Close();
+            return result;
+        }
 
-                    PropertyInfo property = typeof(T).GetProperty(propertyName);
-                    try {
-                        property.SetValue(t, columnValue);
-                    } catch {
-                        Console.WriteLine($"{property.Name} has no setter");
+        public static T SelectByID<T>(int modelId) where T : AbstractModel, new() {
+            MySqlCommand selectCmd = ConnectionManager.CreateDbCommand($"SELECT * FROM {new T().TableName} WHERE ID=\"{modelId}\";");
+            T model = new T();
+
+            using (var reader = selectCmd.ExecuteReader()) {
+                while (reader.Read()) {
+                    for (int i = 0; i < reader.FieldCount; i++) {
+                        PropertyInfo property = model.GetType().GetProperty(reader.GetName(i));
+                        property.SetValue(model, reader.GetValue(i));
                     }
+                    return model;
                 }
             }
-            connection.Close();
-            return t;
+            throw new Exception($"No object with ID {modelId} in table \"{model.TableName}\"");
         }
 
-        public List<T> SelectMany<T>(string commandText) where T : AbstractModel, new()
-        {
-            DbConnection connection = ConnectionThreadManager.ConnectionThread();
-            connection.Open();
-            var selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = commandText;
-
+        public static List<T> SelectMany<T>(string commandText) where T : AbstractModel, new() {
+            var selectCmd = ConnectionManager.CreateDbCommand(commandText);
             List<T> results = new List<T>();
 
-            using (var reader = selectCmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    T t = new T();
-
+            using (var reader = selectCmd.ExecuteReader()) {
+                while (reader.Read()) {
+                    T model = new T();
                     for (int i = 0; i < reader.FieldCount; i++) {
-                        string propertyName = reader.GetName(i);
-                        object columnValue = reader.GetValue(i);
-
-                        PropertyInfo property = typeof(T).GetProperty(propertyName);
-                        property.SetValue(t, columnValue);
+                        PropertyInfo property = model.GetType().GetProperty(reader.GetName(i));
+                        property.SetValue(model, reader.GetValue(i));
                     }
-                    results.Add(t);
+                    results.Add(model);
                 }
             }
-            connection.Close();
+
+            selectCmd.Connection.Close();
             return results;
         }
 
-        public string SelectString(string commandText)
-        {
-            DbConnection connection = ConnectionThreadManager.ConnectionThread();
-            connection.Open();
-            var selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = commandText;
-            string _resultString = (string)selectCmd.ExecuteScalar();
-            connection.Close();
-            return _resultString;
-        }
+        //Create, Update, and Delete
+        public static T Insert<T>(this T model) where T : AbstractModel {
+            MySqlCommand insertCmd = model.InsertPreparedStatement(ConnectionManager.ConnectionThread);
+            MySqlCommand getIdCmd = insertCmd.Connection.CreateCommand();
+            getIdCmd.CommandText = "SELECT LAST_INSERT_ID();";
 
-        public void NonQuery(string commandText)
-        {
-            DbConnection connection = ConnectionThreadManager.ConnectionThread();
-            connection.Open();
-            var selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = commandText;
-            selectCmd.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public T Insert<T>(T t) where T : AbstractModel
-        {
-            MySqlConnection connection = ConnectionThreadManager.ConnectionThread();
-            connection.Open();
-            MySqlTransaction transaction = connection.BeginTransaction();
-            MySqlCommand insertCmd = t.InsertPreparedStatement(connection);
-
+            MySqlTransaction transaction = insertCmd.Connection.BeginTransaction();
             insertCmd.ExecuteNonQuery();
 
-            MySqlCommand getIdCmd = connection.CreateCommand();
-            getIdCmd.CommandText = "SELECT LAST_INSERT_ID();";
-            t.ID = Convert.ToInt32((ulong)getIdCmd.ExecuteScalar());
-
+            model.ID = Convert.ToInt32((ulong)getIdCmd.ExecuteScalar());
             transaction.Commit();
-            connection.Close();
-            return t;
+            insertCmd.Connection.Close();
+            return model;
         }
 
-        public void Update<T>(T t) where T : AbstractModel {
-            DbConnection connection = ConnectionThreadManager.ConnectionThread();
-            connection.Open();
-            DbTransaction transaction = connection.BeginTransaction();
+        public static void Update<T>(this T model) where T : AbstractModel {
+            if(model.ID != 0) {
+                MySqlCommand updateCmd = model.UpdatePreparedStatement(ConnectionManager.ConnectionThread);
+                MySqlTransaction transaction = updateCmd.Connection.BeginTransaction();
 
-            DbCommand updateCmd = t.UpdatePreparedStatement(connection);
-            updateCmd.ExecuteNonQuery();
+                updateCmd.ExecuteNonQuery();
 
-            transaction.Commit();
-            connection.Close();
+                transaction.Commit();
+                updateCmd.Connection.Close();
+            } else {
+                throw new Exception("Update Failed: Object does not exist in Database.");
+            }
         }
 
-        public void Delete<T>(T t) where T : AbstractModel {
-            MySqlConnection connection = ConnectionThreadManager.ConnectionThread();
-            connection.Open();
-            MySqlTransaction transaction = connection.BeginTransaction();
-            DbCommand deleteCmd = t.DeletePreparedStatement(connection);
+        public static int Delete<T>(this T model) where T : AbstractModel {
+            MySqlCommand deleteCmd = model.DeletePreparedStatement(ConnectionManager.ConnectionThread);
+            MySqlTransaction transaction = deleteCmd.Connection.BeginTransaction();
 
             deleteCmd.ExecuteNonQuery();
 
             transaction.Commit();
-            connection.Close();
+            deleteCmd.Connection.Close();
+            return model.ID;
+        }
+
+        public static T Upsert<T>(this T model) where T : AbstractModel {
+            if (model.ID == 0) {
+                model.Insert();
+            } else {
+                model.Update();
+            }
+            return model;
         }
     }
 }

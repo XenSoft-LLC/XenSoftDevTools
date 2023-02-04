@@ -1,35 +1,42 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using XenDB.XenDriver.ConnectionThread;
-using XenDB.XenDriver.DBDriver;
-using XenDB.XenDriver.Default.Model;
-using XenDB.XenDriver.Model;
-using XenDB.XenDriver.Util;
-using XenDriver.Model;
+using XenDB.Connection;
+using XenDB.Driver;
+using XenDB.Model;
 
-namespace XenDB.XenDriver.Repository {
+namespace XenDB.Repository {
     public static class BaseRepository {
 
-        public static SQLQueryDriver _driver = new SQLQueryDriver();
-
-        public static T Insert<T>(T model) where T : AbstractModel {
-            _driver.Insert(model);
-            return model;
-        }
-
-        public static T SelectByID<T>(string objectId) where T : AbstractModel, new() {
-            return _driver.SelectOne<T>($"SELECT * FROM { new T().TableName } WHERE ID=\"{objectId}\";");
+        public static T SelectByID<T>(int modelId) where T : AbstractModel, new() {
+            return SQLQueryDriver.SelectByID<T>(modelId);
         }
 
         public static List<T> SelectAll<T>() where T : AbstractModel, new() {
-            return _driver.SelectMany<T>($"SELECT * FROM { ConnectionThreadManager.GameSchema }.{ new T().TableName }");
+            return SQLQueryDriver.SelectMany<T>($"SELECT * FROM { ConnectionManager.Schema }.{ new T().TableName }");
         }
 
-        public static List<T> SelectByColumnName<T>(string columnName, string columnValue) where T : AbstractModel, new() {
-            return _driver.SelectMany<T>($"SELECT * FROM {new T().TableName } WHERE {columnName}={columnValue};");
+        public static List<T> SelectByColumnName<T>(string columnName, string value) where T : AbstractModel, new() {
+            return SQLQueryDriver.SelectMany<T>($@"SELECT * FROM {new T().TableName} WHERE {columnName} = ""{value}"";");
+        }
+
+        public static T SelectFirstByColumnName<T>(string columnName, string value) where T : AbstractModel, new() {
+            return SQLQueryDriver.SelectMany<T>($@"SELECT * FROM {new T().TableName} WHERE {columnName} = ""{value}"" limit 1;").First();
+        }
+
+        internal static void Update<T>(this T model) where T : AbstractModel {
+            SQLQueryDriver.Update(model);
+        }
+
+        internal static T Insert<T>(this T model) where T : AbstractModel {
+            return SQLQueryDriver.Insert(model);
+        }
+
+        internal static int Delete<T>(this T model) where T : AbstractModel {
+            return SQLQueryDriver.Delete(model);
+        }
+
+        internal static T Upsert<T>(this T model) where T : AbstractModel {
+            return SQLQueryDriver.Upsert(model);
         }
     }
 }

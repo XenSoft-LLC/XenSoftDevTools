@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XenDB.XenDriver.Model;
-using XenDB.XenDriver.Model.ModelForm;
-using XenDriver.Model;
+using XenDB.Model;
 
-namespace XenDB.XenDriver.Factory {
+namespace XenDB.Factory {
     class FormModelFactory<T> where T : AbstractModel, new() {
 
         public static T generateObjectFromForm(BaseModelForm<T> modelForm) {

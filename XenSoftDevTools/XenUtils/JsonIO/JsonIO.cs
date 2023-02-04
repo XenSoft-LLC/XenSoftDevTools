@@ -5,10 +5,10 @@ using System.IO;
 using System.Text;
 
 namespace XenUtils.JsonIO {
-    public class JsonIO<T> {
+    public static class JsonIO<T> {
         //TODO: Create class that stores default filePath locations for all media types
 
-        public T loadObject(string filePath)
+        public static T loadObject(string filePath)
         {
             using (StreamReader r = File.OpenText(filePath))
             {
@@ -17,7 +17,7 @@ namespace XenUtils.JsonIO {
             }
         }
 
-        public void saveObject(T savedObject, string filePath){
+        public static void saveObject(T savedObject, string filePath){
             string json = JsonConvert.SerializeObject(savedObject);
             File.WriteAllText(@filePath, json);
         }

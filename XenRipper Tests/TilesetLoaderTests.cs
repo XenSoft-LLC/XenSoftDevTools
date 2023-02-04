@@ -19,7 +19,7 @@ namespace XenRipper_Tests {
         [Fact]
         public void TestImportTilesetFromJSONReturnsCorrectTilesetObject()
         {
-            Tileset expectedTileset = new Tileset(Image.FromFile(@"F:\Repository\XenSoftDevTools\XenRipper Tests\TestTilesetImages\tileset.png"),
+            Tileset expectedTileset = new Tileset(Image.FromFile(@"G:\Development\Repository\Active\XenTools\XenRipper Tests\TestTilesetImages\tileset.png"),
                 new TilesetMetaConfig("PTE_DemoMap", 10, TestJSONTileData.Tiles, 32, 32, 20), new int[2] { 10, 2 });
             Tileset actualTileset = TilesetLoader.ImportTilesetFromHome();
 
@@ -33,7 +33,7 @@ namespace XenRipper_Tests {
         public void TestLoadTilesetFromHomeReturnsCorrectTilesetObject()
         {
             Tile[] expectedArray = LoadTilesetFromHome.TestTiles;
-            Tileset expectedTileset = new Tileset(Image.FromFile("F:\\Repository\\XenSoftDevTools\\XenRipper Tests\\TestTilesetImages\\tileset.png"),
+            Tileset expectedTileset = new Tileset(Image.FromFile(@"G:\Development\Repository\Active\XenTools\XenRipper Tests\TestTilesetImages\tileset.png"),
                 new TilesetMetaConfig("PTE_DemoMap", 10, expectedArray, 32, 32, 20), new int[2] { 10, 2 });
             Tileset actualTileset = TilesetLoader.LoadTilesetFromHome("PTE_DemoMap");
 

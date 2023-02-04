@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XenDriver.Model;
+using XenDB.Model;
 
-namespace XenDB.XenDriver.Util {
+namespace XenDB.Util {
     public static class TypeUtil {
-        public static bool IsAbstractModel(Type type) {
+        public static bool IsAbstractModel<T>(this T type) where T : Type {
             return type.IsSubclassOf(typeof(AbstractModel));
         }
     }

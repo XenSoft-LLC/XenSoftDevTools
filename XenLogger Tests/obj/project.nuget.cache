@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fzZoPdpSVG9w+CAs4iXZB/d7+J+VDxUmaQhc3t/XGk2HlZb3ObWMOnjTO1GJjGS/+UE8+mPyIHGR452Fjt3GRA==",
+  "dgSpecHash": "U/APTBTgA0LUEIGuNJpI6SY6Jd+IYzWQC78i/avP0WB5ZxjWeI0ib5CUbf9SGYZcMkeXa7G4pfjVxf7bixNarQ==",
   "success": true,
-  "projectFilePath": "F:\\Repository\\XenSoftDevTools\\XenLogger Tests\\XenLogger Tests.csproj",
+  "projectFilePath": "G:\\Development\\Repository\\Active\\XenTools\\XenLogger Tests\\XenLogger Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Soundman\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
     "C:\\Users\\Soundman\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",

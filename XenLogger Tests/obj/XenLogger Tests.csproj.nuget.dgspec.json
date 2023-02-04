@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Repository\\XenSoftDevTools\\XenLogger Tests\\XenLogger Tests.csproj": {}
+    "G:\\Development\\Repository\\Active\\XenTools\\XenLogger Tests\\XenLogger Tests.csproj": {}
   },
   "projects": {
-    "F:\\Repository\\XenSoftDevTools\\XenLogger Tests\\XenLogger Tests.csproj": {
+    "G:\\Development\\Repository\\Active\\XenTools\\XenLogger Tests\\XenLogger Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Repository\\XenSoftDevTools\\XenLogger Tests\\XenLogger Tests.csproj",
+        "projectUniqueName": "G:\\Development\\Repository\\Active\\XenTools\\XenLogger Tests\\XenLogger Tests.csproj",
         "projectName": "XenLogger Tests",
-        "projectPath": "F:\\Repository\\XenSoftDevTools\\XenLogger Tests\\XenLogger Tests.csproj",
+        "projectPath": "G:\\Development\\Repository\\Active\\XenTools\\XenLogger Tests\\XenLogger Tests.csproj",
         "packagesPath": "C:\\Users\\Soundman\\.nuget\\packages\\",
-        "outputPath": "F:\\Repository\\XenSoftDevTools\\XenLogger Tests\\obj\\",
+        "outputPath": "G:\\Development\\Repository\\Active\\XenTools\\XenLogger Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Soundman\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -67,7 +67,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -76,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
